@@ -620,6 +620,7 @@ function renderChatArea() {
   const statusTxt = isStreaming ? 'Soch raha hoon...' : isSpeaking ? 'Bol raha hoon...' : isListening ? 'Sun raha hoon...' : 'Online';
   const oKey = getOKey();
   const modeTxt = oKey ? 'Direct' : 'Backend';
+  const lastModel = localStorage.getItem('lastChatModel') || 'gpt-4o-mini';
   el.innerHTML = `
     <div class="chat-topbar">
       <div class="chat-topbar-info">
@@ -630,6 +631,11 @@ function renderChatArea() {
         </div>
       </div>
       <div class="chat-controls">
+        <select id="chatModel" class="form-input" style="width:auto;padding:4px 8px;font-size:11px;height:32px;margin-right:8px;background:rgba(255,255,255,0.05)" onchange="localStorage.setItem('lastChatModel', this.value)">
+          <option value="gpt-4o-mini" ${lastModel==='gpt-4o-mini'?'selected':''}>GPT-4o Mini</option>
+          <option value="gpt-4o" ${lastModel==='gpt-4o'?'selected':''}>GPT-4o (Advanced)</option>
+          <option value="o1-mini" ${lastModel==='o1-mini'?'selected':''}>o1 Mini</option>
+        </select>
         <button class="ctrl-btn ${voiceEnabled ? (isSpeaking ? 'voice-on' : 'voice-on') : 'voice-off'}" onclick="toggleVoice()" title="${voiceEnabled?'Voice band karo':'Voice chaalu karo'}" style="background:${voiceEnabled?'rgba(34,197,94,0.15)':'rgba(255,255,255,0.05)'};color:${voiceEnabled?'#22c55e':'rgba(255,255,255,0.3)'}">
           ${voiceEnabled ? '🔊' : '🔇'}
         </button>
@@ -644,7 +650,7 @@ function renderChatArea() {
         ${isListening ? '🎙️ Sun raha hoon — bolein!' : isSpeaking ? '🔊 AI bol raha hai...' : '🎤 Jawab ke baad mic shuru hoga'}
       </div>
       <div class="input-row">
-        <textarea class="chat-textarea" id="chatInput" placeholder="${micActive ? 'Ya type bhi kar sakte hain...' : 'Koi bhi sawaal poochho... (Enter = send)'}" onkeydown="if(event.key==='Enter'&&!event.shiftKey){event.preventDefault();sendChatFromInput()}" rows="1"></textarea>
+        <textarea class="chat-textarea" id="chatInput" placeholder="${micActive ? 'Ya type bhi kar sakte hain...' : 'Koi bhi sawaal poochho... (Enter = send)'}" onkeydown="if(event.key==='Enter'&&!event.shiftKey){event.preventDefault();sendChatFromInput()}" oninput="this.style.height='auto';this.style.height=Math.min(this.scrollHeight, 200)+'px'" rows="1"></textarea>
         <button onclick="toggleMic()" title="Mic" style="width:48px;height:48px;border-radius:14px;border:none;cursor:pointer;display:flex;align-items:center;justify-content:center;font-size:20px;transition:all .2s;background:${micActive?(isListening?'#ef4444':'rgba(249,115,22,0.15)'):'rgba(255,255,255,0.06)'};${isListening?'animation:pulse 1s infinite':''}">
           ${micActive ? '🎤' : '🎙️'}
         </button>
@@ -673,14 +679,50 @@ function renderMessages() {
 }
 
 function formatMsg(content) {
-  return content
-    .replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;')
+  let html = content.replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;');
+
+  // Code Blocks: ```lang ... ```
+  html = html.replace(/```(\w*)\n([\s\S]*?)```/g, (match, lang, code) => {
+    const id = 'code-' + Math.random().toString(36).substr(2, 9);
+    return `<div class="code-block">
+      <div class="code-header">
+        <span>${lang || 'code'}</span>
+        <button class="copy-btn" data-code-id="${id}">Copy</button>
+      </div>
+      <pre><code class="language-${lang}" id="${id}">${code.trim()}</code></pre>
+    </div>`;
+  });
+
+  html = html
     .replace(/!\[([^\]]*)\]\(([^)]+)\)/g,'<img src="$2" alt="$1" onerror="this.style.display=\'none\'"/>')
     .replace(/\*\*([^*]+)\*\*/g,'<strong>$1</strong>')
     .replace(/\*([^*]+)\*/g,'<em>$1</em>')
-    .replace(/`([^`]+)`/g,'<code style="background:rgba(255,255,255,0.1);padding:2px 6px;border-radius:4px;font-size:12px">$1</code>')
+    .replace(/`([^`]+)`/g,'<code class="inline-code">$1</code>')
     .replace(/\n/g,'<br/>');
+
+  setTimeout(() => {
+    document.querySelectorAll('pre code').forEach((el) => {
+      if (!el.dataset.highlighted) {
+        hljs.highlightElement(el);
+      }
+    });
+  }, 0);
+
+  return html;
 }
+
+// Global click listener for copy buttons
+document.addEventListener('click', (e) => {
+  if (e.target.classList.contains('copy-btn')) {
+    const codeId = e.target.getAttribute('data-code-id');
+    const code = document.getElementById(codeId).innerText;
+    navigator.clipboard.writeText(code).then(() => {
+      const oldText = e.target.innerText;
+      e.target.innerText = 'Copied!';
+      setTimeout(() => e.target.innerText = oldText, 2000);
+    });
+  }
+});
 
 function addMsg(role, content) {
   messages.push({id:Date.now(),role,content});
@@ -714,19 +756,26 @@ async function sendChatMsg(content) {
   addMsg('user', content);
   isStreaming = true;
   const oKey = getOKey();
+  const model = document.getElementById('chatModel')?.value || 'gpt-4o-mini';
   document.getElementById('sendBtn') && (document.getElementById('sendBtn').disabled = true);
   document.getElementById('chatStatus') && (document.getElementById('chatStatus').textContent = 'Soch raha hoon...');
   let fullText = '';
 
+  const systemPrompt = "You are '_technical_01 AI', a highly advanced AI assistant created by Aman Meena. You provide expert-level, professional, and helpful responses in Hindi and English. You use Markdown for formatting and always provide clear, high-quality information.";
+
   try {
     let res;
     if (oKey) {
+      const apiMessages = [
+        { role: 'system', content: systemPrompt },
+        ...messages.map(m => ({ role: m.role === 'assistant' ? 'assistant' : 'user', content: m.content }))
+      ];
       res = await fetch('https://api.openai.com/v1/chat/completions', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json', 'Authorization': `Bearer ${oKey}` },
         body: JSON.stringify({
-          model: 'gpt-4o-mini',
-          messages: messages.map(m => ({ role: m.role === 'assistant' ? 'assistant' : 'user', content: m.content })),
+          model: model,
+          messages: apiMessages,
           stream: true
         })
       });
