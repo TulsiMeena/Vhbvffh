@@ -22,6 +22,7 @@
     <a class="nav-link active" onclick="showPage('home')" data-page="home">Home</a>
     <a class="nav-link" onclick="showPage('studio')" data-page="studio">AI Studio</a>
     <a class="nav-link" onclick="showPage('chat')" data-page="chat">AI Chat</a>
+    <a class="nav-link" onclick="showPage('ar')" data-page="ar">AR Studio</a>
     <a class="nav-link" onclick="showPage('about')" data-page="about">About Me</a>
     <a class="nav-link" onclick="showPage('contact')" data-page="contact">Contact</a>
     <a class="nav-link" onclick="showPage('settings')" data-page="settings">⚙️ Settings</a>
@@ -45,6 +46,7 @@
   <a class="mobile-link active" onclick="showPage('home');toggleMobileMenu()" data-page="home">🏠 Home</a>
   <a class="mobile-link" onclick="showPage('studio');toggleMobileMenu()" data-page="studio">🎨 AI Studio</a>
   <a class="mobile-link" onclick="showPage('chat');toggleMobileMenu()" data-page="chat">💬 AI Chat</a>
+  <a class="mobile-link" onclick="showPage('ar');toggleMobileMenu()" data-page="ar">🕶️ AR Studio</a>
   <a class="mobile-link" onclick="showPage('about');toggleMobileMenu()" data-page="about">👤 About Me</a>
   <a class="mobile-link" onclick="showPage('contact');toggleMobileMenu()" data-page="contact">📬 Contact</a>
   <a class="mobile-link" onclick="showPage('settings');toggleMobileMenu()" data-page="settings">⚙️ Settings</a>
@@ -124,6 +126,7 @@
       <div class="tool-card" onclick="showPage('studio')"><div class="tool-icon">🎭</div><div class="tool-name">Style Transfer</div><div class="tool-desc">Apni style kisi pe lagao</div></div>
       <div class="tool-card" onclick="showPage('studio')"><div class="tool-icon">🔮</div><div class="tool-name">Remove BG</div><div class="tool-desc">Background hata do</div></div>
       <div class="tool-card" onclick="showPage('chat')"><div class="tool-icon">🤖</div><div class="tool-name">AI Chat</div><div class="tool-desc">Smart AI se baat karo</div></div>
+      <div class="tool-card" onclick="showPage('ar')"><div class="tool-icon">🕶️</div><div class="tool-name">AR Studio</div><div class="tool-desc">3D Models AR mein dekho</div></div>
     </div>
     <div style="display:flex;justify-content:center;gap:12px;flex-wrap:wrap">
       <button class="btn btn-orange" onclick="showPage('studio')">🎨 AI Studio Kholein →</button>
@@ -182,6 +185,40 @@
             <div class="history-grid" id="historyGrid"><p style="color:var(--dim);font-size:12px;padding:12px">Loading...</p></div>
           </div>
         </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ============ AR PAGE ============ -->
+<div id="page-ar" class="page">
+  <div class="ar-wrap">
+    <div class="section-title" style="margin-bottom:32px">
+      <div class="section-badge badge-orange">👓 AR Experience</div>
+      <h1 style="font-size:clamp(28px,7vw,48px);font-weight:900">AR Studio</h1>
+      <p>3D Models ko apni jagah mein dekhein (Mobile Browser Required)</p>
+    </div>
+
+    <div class="ar-container card">
+      <model-viewer
+        src="https://modelviewer.dev/shared-assets/models/Astronaut.glb"
+        ios-src="https://modelviewer.dev/shared-assets/models/Astronaut.usdz"
+        poster="https://modelviewer.dev/shared-assets/models/Astronaut.png"
+        alt="A 3D model of an astronaut"
+        shadow-intensity="1"
+        camera-controls
+        auto-rotate
+        ar
+        ar-modes="webxr scene-viewer quick-look"
+        style="width: 100%; height: 500px; background: rgba(0,0,0,0.2); border-radius: 14px;">
+        <button slot="ar-button" class="btn btn-orange" style="position: absolute; bottom: 16px; right: 16px;">
+          🕶️ View in AR
+        </button>
+      </model-viewer>
+
+      <div style="margin-top: 24px;">
+        <h3 style="font-size: 18px; font-weight: 800; margin-bottom: 8px;">Model: Astronaut</h3>
+        <p style="color: var(--muted); font-size: 14px;">Yeh ek sample 3D model hai. AR button dabakar aap ise apne room mein dekh sakte hain (AR compatible mobile device zaroori hai).</p>
       </div>
     </div>
   </div>
@@ -400,5 +437,6 @@
 
 <script src="config.js"></script>
 <script src="app.js"></script>
+<script type="module" src="https://ajax.googleapis.com/ajax/libs/model-viewer/3.4.0/model-viewer.min.js"></script>
 </body>
 </html>

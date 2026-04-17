@@ -215,6 +215,10 @@ code{font-family: 'Consolas', 'Monaco', 'Andale Mono', 'Ubuntu Mono', monospace}
 .mic-toggle-btn{width:48px;height:48px;border-radius:14px;border:none;cursor:pointer;flex-shrink:0;font-size:20px;transition:all .2s;display:flex;align-items:center;justify-content:center}
 .no-conv{display:flex;flex-direction:column;align-items:center;justify-content:center;height:100%;gap:16px;color:var(--dim);text-align:center;padding:40px}
 
+/* AR PAGE */
+.ar-wrap{max-width:900px;margin:0 auto;padding:40px 24px}
+.ar-container{overflow:hidden;position:relative}
+
 /* ABOUT PAGE */
 .about-page{max-width:900px;margin:0 auto;padding:40px 24px}
 .profile-card{border-radius:24px;overflow:hidden;background:var(--card);border:1px solid var(--border);margin-bottom:28px}
