@@ -18,11 +18,9 @@
   </a>
   <div class="nav-links">
     <a class="nav-link active" onclick="showPage('home')" data-page="home">Home</a>
-    <a class="nav-link" onclick="showPage('studio')" data-page="studio">AI Studio</a>
-    <a class="nav-link" onclick="showPage('chat')" data-page="chat">AI Chat</a>
+    <a class="nav-link" onclick="showPage('ar')" data-page="ar">AR Studio</a>
     <a class="nav-link" onclick="showPage('about')" data-page="about">About Me</a>
     <a class="nav-link" onclick="showPage('contact')" data-page="contact">Contact</a>
-    <a class="nav-link" onclick="showPage('settings')" data-page="settings">⚙️ Settings</a>
   </div>
   <div class="nav-socials">
     <a class="social-btn social-ig" href="https://www.instagram.com/_technical_01?igsh=MTdydjJkbWl3Y3ppeg==" target="_blank" title="Instagram">
@@ -41,11 +39,9 @@
 <!-- MOBILE MENU -->
 <div class="mobile-menu" id="mobileMenu">
   <a class="mobile-link active" onclick="showPage('home');toggleMobileMenu()" data-page="home">🏠 Home</a>
-  <a class="mobile-link" onclick="showPage('studio');toggleMobileMenu()" data-page="studio">🎨 AI Studio</a>
-  <a class="mobile-link" onclick="showPage('chat');toggleMobileMenu()" data-page="chat">💬 AI Chat</a>
+  <a class="mobile-link" onclick="showPage('ar');toggleMobileMenu()" data-page="ar">🕶️ AR Studio</a>
   <a class="mobile-link" onclick="showPage('about');toggleMobileMenu()" data-page="about">👤 About Me</a>
   <a class="mobile-link" onclick="showPage('contact');toggleMobileMenu()" data-page="contact">📬 Contact</a>
-  <a class="mobile-link" onclick="showPage('settings');toggleMobileMenu()" data-page="settings">⚙️ Settings</a>
   <div style="display:flex;gap:12px;margin-top:16px;padding:0 8px">
     <a class="btn btn-orange" style="flex:1;justify-content:center" href="https://www.instagram.com/_technical_01?igsh=MTdydjJkbWl3Y3ppeg==" target="_blank">📸 Instagram</a>
     <a class="btn btn-green" style="flex:1;justify-content:center" href="https://whatsapp.com/channel/0029VaDFCbF9hXFDBUx8fe3E" target="_blank">WhatsApp</a>
@@ -70,7 +66,7 @@
         <svg width="18" height="18" fill="#fff" viewBox="0 0 24 24"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.890-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
         WhatsApp Channel
       </a>
-      <button class="btn btn-ghost" onclick="showPage('studio')">🎨 AI Studio →</button>
+      <button class="btn btn-ghost" onclick="showPage('ar')">🕶️ AR Studio →</button>
     </div>
     <div class="stats">
       <div class="stat-item"><div class="stat-value">📸 15K+</div><div class="stat-label">Instagram Followers</div></div>
@@ -106,29 +102,6 @@
     </div>
   </div>
 
-  <!-- AI tools section -->
-  <div class="section" style="background:rgba(255,255,255,0.01);border-radius:28px">
-    <div class="section-title">
-      <div class="section-badge badge-violet">✨ AI Tools</div>
-      <h2>Ultra-Advanced AI Studio</h2>
-      <p>Stability AI ke saare advanced features ek jagah — professional grade image creation & editing</p>
-    </div>
-    <div class="tools-grid">
-      <div class="tool-card" onclick="showPage('studio')"><div class="tool-icon">🎨</div><div class="tool-name">Text to Image</div><div class="tool-desc">Prompt se stunning images</div></div>
-      <div class="tool-card" onclick="showPage('studio')"><div class="tool-icon">🔄</div><div class="tool-name">Image to Image</div><div class="tool-desc">Ek image se naya design</div></div>
-      <div class="tool-card" onclick="showPage('studio')"><div class="tool-icon">⬆️</div><div class="tool-name">AI Upscaler</div><div class="tool-desc">Low quality ko 4x sharp</div></div>
-      <div class="tool-card" onclick="showPage('studio')"><div class="tool-icon">✂️</div><div class="tool-name">Inpainting</div><div class="tool-desc">Image ka koi hissa badlo</div></div>
-      <div class="tool-card" onclick="showPage('studio')"><div class="tool-icon">✏️</div><div class="tool-name">Sketch to Art</div><div class="tool-desc">Drawing ko real banao</div></div>
-      <div class="tool-card" onclick="showPage('studio')"><div class="tool-icon">🎭</div><div class="tool-name">Style Transfer</div><div class="tool-desc">Apni style kisi pe lagao</div></div>
-      <div class="tool-card" onclick="showPage('studio')"><div class="tool-icon">🔮</div><div class="tool-name">Remove BG</div><div class="tool-desc">Background hata do</div></div>
-      <div class="tool-card" onclick="showPage('chat')"><div class="tool-icon">🤖</div><div class="tool-name">AI Chat</div><div class="tool-desc">Smart AI se baat karo</div></div>
-    </div>
-    <div style="display:flex;justify-content:center;gap:12px;flex-wrap:wrap">
-      <button class="btn btn-orange" onclick="showPage('studio')">🎨 AI Studio Kholein →</button>
-      <button class="btn btn-ghost" onclick="showPage('chat')">💬 AI Chat Try Karein</button>
-    </div>
-  </div>
-
   <!-- IG section -->
   <div class="section">
     <div class="ig-card">
@@ -143,64 +116,35 @@
   </div>
 </div>
 
-<!-- ============ STUDIO PAGE ============ -->
-<div id="page-studio" class="page">
-  <div class="studio-wrap">
-    <div class="studio-header">
-      <div class="section-badge badge-orange" style="display:inline-flex;margin-bottom:12px">✨ AI Image Studio</div>
-      <h1 style="font-size:clamp(28px,6vw,48px);font-weight:900;margin-bottom:6px">AI Studio</h1>
-      <p style="color:var(--muted)">7 Ultra-Advanced Stability AI Tools — Ek Jagah</p>
+<!-- ============ AR PAGE ============ -->
+<div id="page-ar" class="page">
+  <div class="ar-wrap">
+    <div class="section-title" style="margin-bottom:32px">
+      <div class="section-badge badge-orange">👓 AR Experience</div>
+      <h1 style="font-size:clamp(28px,7vw,48px);font-weight:900">AR Studio</h1>
+      <p>3D Models ko apni jagah mein dekhein (Mobile Browser Required)</p>
     </div>
-    <div class="tool-selector" id="toolSelector">
-      <div class="tool-btn active" data-tool="txt2img" onclick="selectTool('txt2img')"><span class="t-icon">🎨</span>Text to Image</div>
-      <div class="tool-btn" data-tool="img2img" onclick="selectTool('img2img')"><span class="t-icon">🔄</span>Image to Image</div>
-      <div class="tool-btn" data-tool="upscale" onclick="selectTool('upscale')"><span class="t-icon">⬆️</span>AI Upscaler</div>
-      <div class="tool-btn" data-tool="inpaint" onclick="selectTool('inpaint')"><span class="t-icon">✂️</span>Inpainting</div>
-      <div class="tool-btn" data-tool="sketch" onclick="selectTool('sketch')"><span class="t-icon">✏️</span>Sketch to Art</div>
-      <div class="tool-btn" data-tool="style" onclick="selectTool('style')"><span class="t-icon">🎭</span>Style Transfer</div>
-      <div class="tool-btn" data-tool="removebg" onclick="selectTool('removebg')"><span class="t-icon">🔮</span>Remove BG</div>
-    </div>
-    <div class="studio-grid">
-      <div id="studioControls" class="card"></div>
-      <div style="display:flex;flex-direction:column;gap:14px">
-        <div class="result-box">
-          <div class="result-header">
-            <span>Result</span>
-            <button class="dl-btn" id="dlBtn" onclick="downloadResult()" style="display:none">⬇ Download</button>
-          </div>
-          <div class="result-content" id="resultContent">
-            <div class="result-placeholder"><div class="p-icon">🎨</div><p>Generate karoge to image yahan aayegi</p></div>
-          </div>
-        </div>
-        <div>
-          <div class="history-toggle" onclick="toggleHistory()">
-            <span>📂 Image History</span><span id="historyArrow">▼</span>
-          </div>
-          <div id="historyContent" style="display:none;margin-top:8px">
-            <div class="history-grid" id="historyGrid"><p style="color:var(--dim);font-size:12px;padding:12px">Loading...</p></div>
-          </div>
-        </div>
-      </div>
-    </div>
-  </div>
-</div>
 
-<!-- ============ CHAT PAGE ============ -->
-<div id="page-chat" class="page">
-  <div class="chat-wrap">
-    <div class="chat-sidebar">
-      <div class="chat-sidebar-title">Conversations</div>
-      <button class="new-chat-btn" onclick="createConv()">+ New Chat</button>
-      <div class="conv-list" id="convList"></div>
-    </div>
-    <div class="chat-main">
-      <div id="chatContent" style="display:flex;flex-direction:column;height:100%">
-        <div class="no-conv">
-          <div class="empty-icon">🤖</div>
-          <h3 style="font-size:18px;font-weight:700;color:rgba(255,255,255,0.7);margin-bottom:8px">_technical_01 AI</h3>
-          <p style="font-size:14px;max-width:300px">Naya chat shuru karo — koi bhi sawaal poochho!</p>
-          <button class="btn btn-orange" style="margin-top:20px" onclick="createConv()">Start New Chat</button>
-        </div>
+    <div class="ar-container card">
+      <model-viewer
+        src="https://modelviewer.dev/shared-assets/models/Astronaut.glb"
+        ios-src="https://modelviewer.dev/shared-assets/models/Astronaut.usdz"
+        poster="https://modelviewer.dev/shared-assets/models/Astronaut.png"
+        alt="A 3D model of an astronaut"
+        shadow-intensity="1"
+        camera-controls
+        auto-rotate
+        ar
+        ar-modes="webxr scene-viewer quick-look"
+        style="width: 100%; height: 500px; background: rgba(0,0,0,0.2); border-radius: 14px;">
+        <button slot="ar-button" class="btn btn-orange" style="position: absolute; bottom: 16px; right: 16px;">
+          🕶️ View in AR
+        </button>
+      </model-viewer>
+
+      <div style="margin-top: 24px;">
+        <h3 style="font-size: 18px; font-weight: 800; margin-bottom: 8px;">Model: Astronaut</h3>
+        <p style="color: var(--muted); font-size: 14px;">Yeh ek sample 3D model hai. AR button dabakar aap ise apne room mein dekh sakte hain (AR compatible mobile device zaroori hai).</p>
       </div>
     </div>
   </div>
@@ -271,7 +215,7 @@
       <div>
         <div class="creator-role">Website Developer & Creator</div>
         <div class="creator-name">Amit Meena</div>
-        <div class="creator-desc">Is website ko <strong>Amit Meena</strong> ne banaya hai — _technical_01 ke liye ek dedicated digital AI platform.</div>
+        <div class="creator-desc">Is website ko <strong>Amit Meena</strong> ne banaya hai — _technical_01 ke liye ek dedicated digital platform.</div>
       </div>
     </div>
   </div>
@@ -290,54 +234,24 @@
       <p style="color:var(--muted);font-size:15px;line-height:1.8"><strong>_technical_01</strong> — Aman Meena ka platform — aapki privacy ko seriously leta hai.</p>
     </div>
     <div class="privacy-section">
-      <div class="privacy-section-header"><span>🗄️</span>Kya Data Collect Hota Hai</div>
-      <p>Jab aap hamare AI tools use karte hain, to hum aapke prompts aur generated images ko database mein store karte hain taaki history feature kaam kar sake. Contact form submit karne par aapka naam, email, aur message save hota hai.</p>
+      <div class="privacy-section-header"><span>🗄️</span>Data Collection</div>
+      <p>Hamari website aapka personal data collect nahi karti jab tak aap contact form submit na karein. Contact form submit karne par aapka naam, email, aur message save hota hai.</p>
     </div>
     <div class="privacy-section">
-      <div class="privacy-section-header"><span>👁️</span>Data Ka Kya Use Hota Hai</div>
-      <p>Aapka data sirf platform ko better banane ke liye use hota hai. Aapka data kabhi bhi kisi third party ko nahi becha ya share nahi kiya jaata.</p>
+      <div class="privacy-section-header"><span>👁️</span>Data Ka Use</div>
+      <p>Aapka data sirf platform ko better banane aur aapse sampark karne ke liye use hota hai. Aapka data kabhi bhi kisi third party ko nahi becha ya share nahi kiya jaata.</p>
     </div>
     <div class="privacy-section">
       <div class="privacy-section-header"><span>🔒</span>Data Security</div>
-      <p>Aapka data ek secure PostgreSQL database mein store hota hai. Sab API calls encrypted connections ke zariye hoti hain.</p>
+      <p>Aapka data secure server par store hota hai. Sab connections encrypted hote hain.</p>
     </div>
     <div class="privacy-section">
-      <div class="privacy-section-header"><span>🍪</span>Cookies & Tracking</div>
+      <div class="privacy-section-header"><span>🍪</span>Cookies</div>
       <p>Yah website koi tracking cookies ya third-party analytics use nahi karti. Aapki browsing activity completely private hai.</p>
     </div>
     <div class="privacy-section">
       <div class="privacy-section-header"><span>✉️</span>Contact Karein</div>
       <p>Privacy se related koi bhi sawal ho to: Email: Xemoh1950t@proton.me | Phone: 8696434884</p>
-    </div>
-  </div>
-</div>
-
-<!-- ============ SETTINGS PAGE ============ -->
-<div id="page-settings" class="page">
-  <div class="contact-page">
-    <div class="section-title" style="margin-bottom:32px">
-      <div class="section-badge badge-violet">⚙️ API Settings</div>
-      <h1 style="font-size:clamp(28px,7vw,48px);font-weight:900;margin-top:12px">Configuration</h1>
-      <p>Apne personal API keys yahan setup karein</p>
-    </div>
-    <div class="card" style="max-width:600px;margin:0 auto">
-      <div class="form-group">
-        <label>Stability AI API Key</label>
-        <input id="set-skey" type="password" class="form-input" placeholder="sk-..."/>
-        <p style="font-size:10px;color:var(--dim);margin-top:4px">Stable Image generation ke liye (Optional)</p>
-      </div>
-      <div class="form-group">
-        <label>OpenAI API Key</label>
-        <input id="set-okey" type="password" class="form-input" placeholder="sk-..."/>
-        <p style="font-size:10px;color:var(--dim);margin-top:4px">AI Chat completions ke liye (Optional)</p>
-      </div>
-      <div class="form-group">
-        <label>Hugging Face API Key</label>
-        <input id="set-hkey" type="password" class="form-input" placeholder="hf_..."/>
-        <p style="font-size:10px;color:var(--dim);margin-top:4px">Hugging Face models ke liye (Optional)</p>
-      </div>
-      <button class="generate-btn" onclick="saveSettings()">💾 Settings Save Karo</button>
-      <div id="settings-status" style="margin-top:16px;text-align:center;font-size:12px;font-weight:700"></div>
     </div>
   </div>
 </div>
@@ -396,7 +310,7 @@
   </div>
 </footer>
 
-<script src="config.js"></script>
 <script src="app.js"></script>
+<script type="module" src="https://ajax.googleapis.com/ajax/libs/model-viewer/3.4.0/model-viewer.min.js"></script>
 </body>
 </html>
