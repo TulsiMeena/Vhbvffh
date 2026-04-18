@@ -26,7 +26,6 @@
   </a>
   <div class="nav-links">
     <a class="nav-link active" onclick="showPage('home')" data-page="home">Home</a>
-    <a class="nav-link" onclick="showPage('chat')" data-page="chat">AI Chat</a>
     <a class="nav-link" onclick="showPage('vision')" data-page="vision">AI Vision</a>
     <a class="nav-link" onclick="showPage('ar')" data-page="ar">AR Studio</a>
     <a class="nav-link" onclick="showPage('settings')" data-page="settings">⚙️ Settings</a>
@@ -37,7 +36,6 @@
 <!-- MOBILE MENU -->
 <div class="mobile-menu" id="mobileMenu">
   <a class="mobile-link active" onclick="showPage('home');toggleMobileMenu()" data-page="home">🏠 Home</a>
-  <a class="mobile-link" onclick="showPage('chat');toggleMobileMenu()" data-page="chat">💬 AI Chat</a>
   <a class="mobile-link" onclick="showPage('vision');toggleMobileMenu()" data-page="vision">👁️ AI Vision</a>
   <a class="mobile-link" onclick="showPage('ar');toggleMobileMenu()" data-page="ar">🕶️ AR Studio</a>
   <a class="mobile-link" onclick="showPage('settings');toggleMobileMenu()" data-page="settings">⚙️ Settings</a>
@@ -50,33 +48,12 @@
     <h1>_technical<span>_01</span></h1>
     <p class="hero-desc">Advanced ChatGPT integration, Real-time Hand/Face tracking, and Link-to-AR technology.</p>
     <div class="hero-btns">
-      <button class="btn btn-orange" onclick="showPage('chat')">💬 AI Chat Shuru Karein</button>
       <button class="btn btn-green" onclick="showPage('vision')">👁️ Vision Tracking</button>
-      <button class="btn btn-ghost" onclick="showPage('ar')">🕶️ AR Experience</button>
+      <button class="btn btn-orange" onclick="showPage('ar')">🕶️ AR Experience</button>
     </div>
   </div>
 </div>
 
-<!-- ============ CHAT PAGE ============ -->
-<div id="page-chat" class="page">
-  <div class="chat-wrap">
-    <div class="chat-sidebar">
-      <div class="chat-sidebar-title">Conversations</div>
-      <button class="new-chat-btn" onclick="createConv()">+ New Chat</button>
-      <div class="conv-list" id="convList"></div>
-    </div>
-    <div class="chat-main">
-      <div id="chatContent" style="display:flex;flex-direction:column;height:100%">
-        <div class="no-conv">
-          <div class="empty-icon">🤖</div>
-          <h3>Welcome to AI Chat</h3>
-          <p>Talk to our advanced AI about anything. Paste Amazon links to create AR!</p>
-          <button class="btn btn-orange" onclick="createConv()">Start Now</button>
-        </div>
-      </div>
-    </div>
-  </div>
-</div>
 
 <!-- ============ VISION PAGE ============ -->
 <div id="page-vision" class="page">
@@ -148,11 +125,7 @@
       <p>Setup your AI API keys</p>
     </div>
     <div class="card" style="max-width:500px;margin:0 auto">
-      <div class="form-group">
-        <label>OpenAI API Key (Advanced Chat Ke Liye)</label>
-        <input id="set-okey" type="password" class="form-input" placeholder="sk-..."/>
-      </div>
-      <button class="btn btn-orange" style="width:100%" onclick="saveSettings()">Settings Save Karein</button>
+      <p style="text-align:center;color:var(--dim)">Settings configured automatically.</p>
       <div id="settings-status" style="margin-top:12px;text-align:center"></div>
     </div>
   </div>
