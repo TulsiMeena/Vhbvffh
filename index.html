@@ -3,8 +3,16 @@
 <head>
 <meta charset="UTF-8"/>
 <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-<title>Welcome to Aman Meena | _technical_01</title>
+<title>_technical_01 | Advanced AI & AR</title>
 <link rel="stylesheet" href="styles.css"/>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/styles/github-dark.min.css">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/highlight.min.js"></script>
+
+<!-- MediaPipe for Vision -->
+<script src="https://cdn.jsdelivr.net/npm/@mediapipe/hands/hands.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/@mediapipe/face_mesh/face_mesh.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/@mediapipe/camera_utils/camera_utils.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/@mediapipe/drawing_utils/drawing_utils.js"></script>
 </head>
 <body>
 <div class="blob blob1"></div>
@@ -18,22 +26,10 @@
   </a>
   <div class="nav-links">
     <a class="nav-link active" onclick="showPage('home')" data-page="home">Home</a>
-    <a class="nav-link" onclick="showPage('studio')" data-page="studio">AI Studio</a>
     <a class="nav-link" onclick="showPage('chat')" data-page="chat">AI Chat</a>
-    <a class="nav-link" onclick="showPage('about')" data-page="about">About Me</a>
-    <a class="nav-link" onclick="showPage('contact')" data-page="contact">Contact</a>
+    <a class="nav-link" onclick="showPage('vision')" data-page="vision">AI Vision</a>
+    <a class="nav-link" onclick="showPage('ar')" data-page="ar">AR Studio</a>
     <a class="nav-link" onclick="showPage('settings')" data-page="settings">⚙️ Settings</a>
-  </div>
-  <div class="nav-socials">
-    <a class="social-btn social-ig" href="https://www.instagram.com/_technical_01?igsh=MTdydjJkbWl3Y3ppeg==" target="_blank" title="Instagram">
-      <svg width="18" height="18" fill="#fff" viewBox="0 0 24 24"><path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.163 6.162 6.163 6.162-2.759 6.162-6.163c0-3.403-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4 0-2.209 1.791-4 4-4s4 1.791 4 4c0 2.21-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.44s-.644-1.44-1.439-1.44z"/></svg>
-    </a>
-    <a class="social-btn social-wa" href="https://whatsapp.com/channel/0029VaDFCbF9hXFDBUx8fe3E" target="_blank" title="WhatsApp">
-      <svg width="18" height="18" fill="#fff" viewBox="0 0 24 24"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.890-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
-    </a>
-    <a class="social-btn social-x" href="https://x.com/_technical_01" target="_blank" title="X">
-      <svg width="16" height="16" fill="#fff" viewBox="0 0 24 24"><path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-4.714-6.231-5.401 6.231H2.746l7.735-8.835L1.254 2.25H8.08l4.253 5.622zm-1.161 17.52h1.833L7.084 4.126H5.117z"/></svg>
-    </a>
   </div>
   <button class="hamburger" onclick="toggleMobileMenu()">☰</button>
 </nav>
@@ -41,149 +37,26 @@
 <!-- MOBILE MENU -->
 <div class="mobile-menu" id="mobileMenu">
   <a class="mobile-link active" onclick="showPage('home');toggleMobileMenu()" data-page="home">🏠 Home</a>
-  <a class="mobile-link" onclick="showPage('studio');toggleMobileMenu()" data-page="studio">🎨 AI Studio</a>
   <a class="mobile-link" onclick="showPage('chat');toggleMobileMenu()" data-page="chat">💬 AI Chat</a>
-  <a class="mobile-link" onclick="showPage('about');toggleMobileMenu()" data-page="about">👤 About Me</a>
-  <a class="mobile-link" onclick="showPage('contact');toggleMobileMenu()" data-page="contact">📬 Contact</a>
+  <a class="mobile-link" onclick="showPage('vision');toggleMobileMenu()" data-page="vision">👁️ AI Vision</a>
+  <a class="mobile-link" onclick="showPage('ar');toggleMobileMenu()" data-page="ar">🕶️ AR Studio</a>
   <a class="mobile-link" onclick="showPage('settings');toggleMobileMenu()" data-page="settings">⚙️ Settings</a>
-  <div style="display:flex;gap:12px;margin-top:16px;padding:0 8px">
-    <a class="btn btn-orange" style="flex:1;justify-content:center" href="https://www.instagram.com/_technical_01?igsh=MTdydjJkbWl3Y3ppeg==" target="_blank">📸 Instagram</a>
-    <a class="btn btn-green" style="flex:1;justify-content:center" href="https://whatsapp.com/channel/0029VaDFCbF9hXFDBUx8fe3E" target="_blank">WhatsApp</a>
-  </div>
 </div>
 
 <!-- ============ HOME PAGE ============ -->
 <div id="page-home" class="page active">
   <div class="hero">
-    <div class="hero-badge">⚡ Welcome to Aman Meena's World</div>
-    <img class="hero-avatar" src="https://raw.githubusercontent.com/Amitmeena55/Aman-Meena-/main/Technical_01.jpg" alt="Aman Meena" onerror="this.src='https://raw.githubusercontent.com/Amitmeena55/Aman-Meena-/main/aman1.jpg'"/>
+    <div class="hero-badge">✨ Next-Gen AI Platform</div>
     <h1>_technical<span>_01</span></h1>
-    <p class="hero-name">Aman Meena</p>
-    <p class="hero-loc">🌍 Jaipur, Karauli, Rajasthan, India</p>
-    <p class="hero-desc">Amazon projects ko video ke zariye logon tak pahunchata hoon — <strong>15K+ Instagram followers</strong>, <em>200+ posts</em>, 5+ saal ka experience</p>
+    <p class="hero-desc">Advanced ChatGPT integration, Real-time Hand/Face tracking, and Link-to-AR technology.</p>
     <div class="hero-btns">
-      <a class="btn btn-orange" href="https://www.instagram.com/_technical_01?igsh=MTdydjJkbWl3Y3ppeg==" target="_blank">
-        <svg width="18" height="18" fill="#fff" viewBox="0 0 24 24"><path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.163 6.162 6.163 6.162-2.759 6.162-6.163c0-3.403-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4 0-2.209 1.791-4 4-4s4 1.791 4 4c0 2.21-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.44s-.644-1.44-1.439-1.44z"/></svg>
-        @_technical_01
-      </a>
-      <a class="btn btn-green" href="https://whatsapp.com/channel/0029VaDFCbF9hXFDBUx8fe3E" target="_blank">
-        <svg width="18" height="18" fill="#fff" viewBox="0 0 24 24"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.890-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
-        WhatsApp Channel
-      </a>
-      <button class="btn btn-ghost" onclick="showPage('studio')">🎨 AI Studio →</button>
-    </div>
-    <div class="stats">
-      <div class="stat-item"><div class="stat-value">📸 15K+</div><div class="stat-label">Instagram Followers</div></div>
-      <div class="stat-item"><div class="stat-value">🎬 200+</div><div class="stat-label">Posts Created</div></div>
-      <div class="stat-item"><div class="stat-value">⚡ 5+</div><div class="stat-label">Years Experience</div></div>
-      <div class="stat-item"><div class="stat-value">🌐 4+</div><div class="stat-label">Social Platforms</div></div>
-    </div>
-  </div>
-
-  <!-- About section on home -->
-  <div class="section">
-    <div class="section-title">
-      <div class="section-badge badge-orange">🙋 About Me</div>
-      <h2>Main Kaun Hoon?</h2>
-    </div>
-    <div class="about-grid">
-      <div class="about-text">
-        <p>Main <strong>Aman Meena</strong> hoon — ek student aur digital content creator. Mera Instagram account <span class="hl-o">@_technical_01</span> Amazon ke earning projects ko video ke zariye logon tak pahunchata hai.</p>
-        <p>Mere WhatsApp channel <span class="hl-g">"Technical 01"</span> ke zariye sabhi Amazon project links share karta hoon. Jaipur, Karauli, Rajasthan se belong karta hoon.</p>
-        <div class="about-facts">
-          <div class="about-fact"><span class="icon">📍</span> India, Jaipur, Karauli, Sapotara Mod</div>
-          <div class="about-fact"><span class="icon">📸</span> Instagram: @_technical_01 (15K+ followers)</div>
-          <div class="about-fact"><span class="icon">💬</span> WhatsApp Channel: Technical 01</div>
-          <div class="about-fact"><span class="icon">🐦</span> X.com: @_technical_01</div>
-          <div class="about-fact"><span class="icon">✍️</span> Medium: @_technical_01</div>
-        </div>
-      </div>
-      <div class="about-imgs">
-        <div class="about-img-main"><img src="https://raw.githubusercontent.com/Amitmeena55/Aman-Meena-/main/Technical_01.jpg" alt="Aman Meena" onerror="this.style.display='none'"/></div>
-        <div class="about-img"><img src="https://raw.githubusercontent.com/Amitmeena55/Aman-Meena-/main/aman1.jpg" alt="Aman" onerror="this.style.display='none'"/></div>
-        <div class="about-img"><img src="https://raw.githubusercontent.com/Amitmeena55/Aman-Meena-/main/aman3.jpg" alt="Aman" onerror="this.style.display='none'"/></div>
-      </div>
-    </div>
-  </div>
-
-  <!-- AI tools section -->
-  <div class="section" style="background:rgba(255,255,255,0.01);border-radius:28px">
-    <div class="section-title">
-      <div class="section-badge badge-violet">✨ AI Tools</div>
-      <h2>Ultra-Advanced AI Studio</h2>
-      <p>Stability AI ke saare advanced features ek jagah — professional grade image creation & editing</p>
-    </div>
-    <div class="tools-grid">
-      <div class="tool-card" onclick="showPage('studio')"><div class="tool-icon">🎨</div><div class="tool-name">Text to Image</div><div class="tool-desc">Prompt se stunning images</div></div>
-      <div class="tool-card" onclick="showPage('studio')"><div class="tool-icon">🔄</div><div class="tool-name">Image to Image</div><div class="tool-desc">Ek image se naya design</div></div>
-      <div class="tool-card" onclick="showPage('studio')"><div class="tool-icon">⬆️</div><div class="tool-name">AI Upscaler</div><div class="tool-desc">Low quality ko 4x sharp</div></div>
-      <div class="tool-card" onclick="showPage('studio')"><div class="tool-icon">✂️</div><div class="tool-name">Inpainting</div><div class="tool-desc">Image ka koi hissa badlo</div></div>
-      <div class="tool-card" onclick="showPage('studio')"><div class="tool-icon">✏️</div><div class="tool-name">Sketch to Art</div><div class="tool-desc">Drawing ko real banao</div></div>
-      <div class="tool-card" onclick="showPage('studio')"><div class="tool-icon">🎭</div><div class="tool-name">Style Transfer</div><div class="tool-desc">Apni style kisi pe lagao</div></div>
-      <div class="tool-card" onclick="showPage('studio')"><div class="tool-icon">🔮</div><div class="tool-name">Remove BG</div><div class="tool-desc">Background hata do</div></div>
-      <div class="tool-card" onclick="showPage('chat')"><div class="tool-icon">🤖</div><div class="tool-name">AI Chat</div><div class="tool-desc">Smart AI se baat karo</div></div>
-    </div>
-    <div style="display:flex;justify-content:center;gap:12px;flex-wrap:wrap">
-      <button class="btn btn-orange" onclick="showPage('studio')">🎨 AI Studio Kholein →</button>
-      <button class="btn btn-ghost" onclick="showPage('chat')">💬 AI Chat Try Karein</button>
-    </div>
-  </div>
-
-  <!-- IG section -->
-  <div class="section">
-    <div class="ig-card">
-      <img class="ig-logo" src="https://raw.githubusercontent.com/Amitmeena55/Aman-Meena-/main/Aman.jpg" alt="_technical_01" onerror="this.style.display='none'"/>
-      <h2>@_technical_01</h2>
-      <p>Instagram • 15K+ Followers • 200+ Posts<br/>Amazon ke sabse latest earning projects, video tutorials, aur tips — sab kuch ek jagah!</p>
-      <div style="display:flex;gap:12px;justify-content:center;flex-wrap:wrap">
-        <a class="btn btn-orange" href="https://www.instagram.com/_technical_01?igsh=MTdydjJkbWl3Y3ppeg==" target="_blank">📸 Instagram Follow Karo</a>
-        <a class="btn btn-green" href="https://whatsapp.com/channel/0029VaDFCbF9hXFDBUx8fe3E" target="_blank">WhatsApp Join Karo</a>
-      </div>
+      <button class="btn btn-orange" onclick="showPage('chat')">💬 AI Chat Shuru Karein</button>
+      <button class="btn btn-green" onclick="showPage('vision')">👁️ Vision Tracking</button>
+      <button class="btn btn-ghost" onclick="showPage('ar')">🕶️ AR Experience</button>
     </div>
   </div>
 </div>
 
-<!-- ============ STUDIO PAGE ============ -->
-<div id="page-studio" class="page">
-  <div class="studio-wrap">
-    <div class="studio-header">
-      <div class="section-badge badge-orange" style="display:inline-flex;margin-bottom:12px">✨ AI Image Studio</div>
-      <h1 style="font-size:clamp(28px,6vw,48px);font-weight:900;margin-bottom:6px">AI Studio</h1>
-      <p style="color:var(--muted)">7 Ultra-Advanced Stability AI Tools — Ek Jagah</p>
-    </div>
-    <div class="tool-selector" id="toolSelector">
-      <div class="tool-btn active" data-tool="txt2img" onclick="selectTool('txt2img')"><span class="t-icon">🎨</span>Text to Image</div>
-      <div class="tool-btn" data-tool="img2img" onclick="selectTool('img2img')"><span class="t-icon">🔄</span>Image to Image</div>
-      <div class="tool-btn" data-tool="upscale" onclick="selectTool('upscale')"><span class="t-icon">⬆️</span>AI Upscaler</div>
-      <div class="tool-btn" data-tool="inpaint" onclick="selectTool('inpaint')"><span class="t-icon">✂️</span>Inpainting</div>
-      <div class="tool-btn" data-tool="sketch" onclick="selectTool('sketch')"><span class="t-icon">✏️</span>Sketch to Art</div>
-      <div class="tool-btn" data-tool="style" onclick="selectTool('style')"><span class="t-icon">🎭</span>Style Transfer</div>
-      <div class="tool-btn" data-tool="removebg" onclick="selectTool('removebg')"><span class="t-icon">🔮</span>Remove BG</div>
-    </div>
-    <div class="studio-grid">
-      <div id="studioControls" class="card"></div>
-      <div style="display:flex;flex-direction:column;gap:14px">
-        <div class="result-box">
-          <div class="result-header">
-            <span>Result</span>
-            <button class="dl-btn" id="dlBtn" onclick="downloadResult()" style="display:none">⬇ Download</button>
-          </div>
-          <div class="result-content" id="resultContent">
-            <div class="result-placeholder"><div class="p-icon">🎨</div><p>Generate karoge to image yahan aayegi</p></div>
-          </div>
-        </div>
-        <div>
-          <div class="history-toggle" onclick="toggleHistory()">
-            <span>📂 Image History</span><span id="historyArrow">▼</span>
-          </div>
-          <div id="historyContent" style="display:none;margin-top:8px">
-            <div class="history-grid" id="historyGrid"><p style="color:var(--dim);font-size:12px;padding:12px">Loading...</p></div>
-          </div>
-        </div>
-      </div>
-    </div>
-  </div>
-</div>
 
 <!-- ============ CHAT PAGE ============ -->
 <div id="page-chat" class="page">
@@ -197,206 +70,97 @@
       <div id="chatContent" style="display:flex;flex-direction:column;height:100%">
         <div class="no-conv">
           <div class="empty-icon">🤖</div>
-          <h3 style="font-size:18px;font-weight:700;color:rgba(255,255,255,0.7);margin-bottom:8px">_technical_01 AI</h3>
-          <p style="font-size:14px;max-width:300px">Naya chat shuru karo — koi bhi sawaal poochho!</p>
-          <button class="btn btn-orange" style="margin-top:20px" onclick="createConv()">Start New Chat</button>
+          <h3>Welcome to AI Chat</h3>
+          <p>Talk to our advanced AI about anything. Paste Amazon links to create AR!</p>
+          <button class="btn btn-orange" onclick="createConv()">Start Now</button>
         </div>
       </div>
     </div>
   </div>
 </div>
 
-<!-- ============ ABOUT PAGE ============ -->
-<div id="page-about" class="page">
-  <div class="about-page">
-    <div class="section-title" style="margin-bottom:32px">
-      <div class="section-badge badge-orange">🙋 About Me</div>
-      <h1 style="font-size:clamp(32px,8vw,56px);font-weight:900">Aman <span style="background:linear-gradient(135deg,#f97316,#ec4899);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text">Meena</span></h1>
-      <p>_technical_01 ka owner & content creator</p>
+<!-- ============ VISION PAGE ============ -->
+<div id="page-vision" class="page">
+  <div class="vision-wrap">
+    <div class="section-title">
+      <div class="section-badge badge-orange">⚡ AI Vision Studio</div>
+      <h2>Live Gesture Control</h2>
+      <p>Move your hand to rotate 3D models. Sync with AR page below.</p>
     </div>
-    <div class="profile-card">
-      <div class="profile-cover"></div>
-      <div class="profile-body">
-        <img class="profile-avatar" src="https://raw.githubusercontent.com/Amitmeena55/Aman-Meena-/main/Technical_01.jpg" alt="Aman Meena" onerror="this.src='https://raw.githubusercontent.com/Amitmeena55/Aman-Meena-/main/aman1.jpg'"/>
-        <div class="profile-name">Aman Meena</div>
-        <div class="profile-handle">@_technical_01</div>
-        <div class="profile-title">Student & Digital Content Creator</div>
-        <div class="profile-stats">
-          <div><div class="pstat-val">15K+</div><div class="pstat-lbl">Followers</div></div>
-          <div><div class="pstat-val">200+</div><div class="pstat-lbl">Posts</div></div>
-          <div><div class="pstat-val">5+</div><div class="pstat-lbl">Years</div></div>
-        </div>
-        <div class="profile-bio">
-          Mera naam <strong>Aman Meena</strong> hai. Main ek student hoon aur saath hi ek digital content creator bhi hoon. Mere Instagram account <span class="hl-o">@_technical_01</span> par main Amazon ke earning projects ko video ke zariye logon tak pahunchata hoon. Mere followers ko projects ki links mere WhatsApp channel <span class="hl-g">"Technical 01"</span> ke zariye milti hain.
-        </div>
-        <div class="profile-facts">
-          <div class="fact-row"><span class="fact-icon">📍</span><div><div class="fact-label">Location</div><div class="fact-val">India, Jaipur, Karauli, Sapotara Mod</div></div></div>
-          <div class="fact-row"><span class="fact-icon">📞</span><div><div class="fact-label">Phone</div><div class="fact-val">8696434884</div></div></div>
-          <div class="fact-row"><span class="fact-icon">📧</span><div><div class="fact-label">Email</div><div class="fact-val">Xemoh1950t@proton.me</div></div></div>
-          <div class="fact-row"><span class="fact-icon">🌐</span><div><div class="fact-label">Platform</div><div class="fact-val">_technical_01 (All Platforms)</div></div></div>
-        </div>
+    <div class="vision-container card">
+      <div class="vision-controls">
+        <button class="btn btn-orange" onclick="startVision()">Start Sensors 📷</button>
+        <button class="btn btn-ghost" onclick="stopVision()">Stop Sensors 🛑</button>
       </div>
-    </div>
-
-    <h3 style="font-size:18px;font-weight:800;margin-bottom:16px">Social Media Presence</h3>
-    <div class="social-links-grid" style="margin-bottom:28px">
-      <a class="social-card" href="https://www.instagram.com/_technical_01?igsh=MTdydjJkbWl3Y3ppeg==" target="_blank">
-        <div class="social-card-icon" style="background:linear-gradient(135deg,#f97316,#ec4899)">
-          <svg width="22" height="22" fill="#fff" viewBox="0 0 24 24"><path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.163 6.162 6.163 6.162-2.759 6.162-6.163c0-3.403-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4 0-2.209 1.791-4 4-4s4 1.791 4 4c0 2.21-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.44s-.644-1.44-1.439-1.44z"/></svg>
+      <div class="video-overlay-wrap">
+        <video id="visionVideo" style="display:none" playsinline></video>
+        <canvas id="visionCanvas"></canvas>
+        <div id="visionPlaceholder" class="vision-placeholder">
+          <div style="font-size:48px;margin-bottom:12px">👁️</div>
+          <p>Gesture input ready</p>
         </div>
-        <div><div class="social-card-name">@_technical_01</div><div class="social-card-sub">Instagram • 15K+ followers</div></div>
-      </a>
-      <a class="social-card" href="https://whatsapp.com/channel/0029VaDFCbF9hXFDBUx8fe3E" target="_blank">
-        <div class="social-card-icon" style="background:#25D366">
-          <svg width="22" height="22" fill="#fff" viewBox="0 0 24 24"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.890-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
-        </div>
-        <div><div class="social-card-name">Technical 01</div><div class="social-card-sub">WhatsApp Channel</div></div>
-      </a>
-      <a class="social-card" href="https://x.com/_technical_01" target="_blank">
-        <div class="social-card-icon" style="background:#000;border:1px solid rgba(255,255,255,0.15)">
-          <svg width="20" height="20" fill="#fff" viewBox="0 0 24 24"><path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-4.714-6.231-5.401 6.231H2.746l7.735-8.835L1.254 2.25H8.08l4.253 5.622zm-1.161 17.52h1.833L7.084 4.126H5.117z"/></svg>
-        </div>
-        <div><div class="social-card-name">@_technical_01</div><div class="social-card-sub">X (Twitter)</div></div>
-      </a>
-      <a class="social-card" href="https://medium.com/@_technical_01" target="_blank">
-        <div class="social-card-icon" style="background:rgba(255,255,255,0.08);border:1px solid var(--border)">
-          <svg width="20" height="20" fill="#fff" viewBox="0 0 24 24"><path d="M13.54 12a6.8 6.8 0 01-6.77 6.82A6.8 6.8 0 010 12a6.8 6.8 0 016.77-6.82A6.8 6.8 0 0113.54 12zM20.96 12c0 3.54-1.51 6.42-3.38 6.42-1.87 0-3.39-2.88-3.39-6.42s1.52-6.42 3.39-6.42 3.38 2.88 3.38 6.42M24 12c0 3.17-.53 5.75-1.19 5.75-.66 0-1.19-2.58-1.19-5.75s.53-5.75 1.19-5.75C23.47 6.25 24 8.83 24 12z"/></svg>
-        </div>
-        <div><div class="social-card-name">@_technical_01</div><div class="social-card-sub">Medium</div></div>
-      </a>
-    </div>
-
-    <div class="creator-card">
-      <img class="creator-img" src="https://raw.githubusercontent.com/Amitmeena55/Aman-Meena-/main/Amit%20meena.jpg" alt="Amit Meena" onerror="this.style.display='none'"/>
-      <div>
-        <div class="creator-role">Website Developer & Creator</div>
-        <div class="creator-name">Amit Meena</div>
-        <div class="creator-desc">Is website ko <strong>Amit Meena</strong> ne banaya hai — _technical_01 ke liye ek dedicated digital AI platform.</div>
       </div>
     </div>
   </div>
 </div>
 
-<!-- ============ PRIVACY PAGE ============ -->
-<div id="page-privacy" class="page">
-  <div class="privacy-page">
-    <div class="section-title" style="margin-bottom:28px">
-      <div class="section-badge" style="background:rgba(34,197,94,0.1);border:1px solid rgba(34,197,94,0.2);color:#22c55e;display:inline-flex;gap:6px;padding:6px 16px;border-radius:999px;font-size:12px;font-weight:600">🛡️ Privacy & Security</div>
-      <h1 style="font-size:40px;font-weight:900;margin-top:12px">Privacy Policy</h1>
-      <p>_technical_01 platform ki privacy policy — aapki information safe hai</p>
-      <p style="color:var(--dim);font-size:12px;margin-top:6px">Last updated: March 2026</p>
+<!-- ============ AR PAGE ============ -->
+<div id="page-ar" class="page">
+  <div class="ar-wrap">
+    <div class="section-title">
+      <div class="section-badge badge-orange">🕶️ AR Studio</div>
+      <h2>Amazon to AR</h2>
+      <p>Enter an Amazon project link to see it in 3D AR.</p>
     </div>
-    <div class="card" style="margin-bottom:20px;padding:20px">
-      <p style="color:var(--muted);font-size:15px;line-height:1.8"><strong>_technical_01</strong> — Aman Meena ka platform — aapki privacy ko seriously leta hai.</p>
-    </div>
-    <div class="privacy-section">
-      <div class="privacy-section-header"><span>🗄️</span>Kya Data Collect Hota Hai</div>
-      <p>Jab aap hamare AI tools use karte hain, to hum aapke prompts aur generated images ko database mein store karte hain taaki history feature kaam kar sake. Contact form submit karne par aapka naam, email, aur message save hota hai.</p>
-    </div>
-    <div class="privacy-section">
-      <div class="privacy-section-header"><span>👁️</span>Data Ka Kya Use Hota Hai</div>
-      <p>Aapka data sirf platform ko better banane ke liye use hota hai. Aapka data kabhi bhi kisi third party ko nahi becha ya share nahi kiya jaata.</p>
-    </div>
-    <div class="privacy-section">
-      <div class="privacy-section-header"><span>🔒</span>Data Security</div>
-      <p>Aapka data ek secure PostgreSQL database mein store hota hai. Sab API calls encrypted connections ke zariye hoti hain.</p>
-    </div>
-    <div class="privacy-section">
-      <div class="privacy-section-header"><span>🍪</span>Cookies & Tracking</div>
-      <p>Yah website koi tracking cookies ya third-party analytics use nahi karti. Aapki browsing activity completely private hai.</p>
-    </div>
-    <div class="privacy-section">
-      <div class="privacy-section-header"><span>✉️</span>Contact Karein</div>
-      <p>Privacy se related koi bhi sawal ho to: Email: Xemoh1950t@proton.me | Phone: 8696434884</p>
+    <div class="ar-container card">
+      <div class="amazon-input-wrap">
+        <input type="text" id="amazonLink" class="form-input" placeholder="Amazon project link yahan paste karein..."/>
+        <button class="btn btn-orange" onclick="loadAmazonAR()">Load Model ✨</button>
+      </div>
+      <model-viewer
+        id="mainViewer"
+        src="https://modelviewer.dev/shared-assets/models/Astronaut.glb"
+        ios-src="https://modelviewer.dev/shared-assets/models/Astronaut.usdz"
+        poster="https://modelviewer.dev/shared-assets/models/Astronaut.png"
+        alt="3D model viewer"
+        shadow-intensity="1"
+        camera-controls
+        auto-rotate
+        ar
+        ar-modes="webxr scene-viewer quick-look"
+        style="width: 100%; height: 500px; background: rgba(0,0,0,0.2); border-radius: 14px; margin-top: 20px;">
+        <button slot="ar-button" class="btn btn-orange" style="position: absolute; bottom: 16px; right: 16px;">
+          🕶️ View in AR
+        </button>
+      </model-viewer>
+      <div style="margin-top: 24px;">
+        <h3 id="modelTitle">Model: Astronaut</h3>
+        <p id="modelDesc" style="color: var(--muted); font-size: 14px;">Use keywords like "chair", "robot", "lamp", "table" in the link for demo.</p>
+      </div>
     </div>
   </div>
 </div>
 
 <!-- ============ SETTINGS PAGE ============ -->
 <div id="page-settings" class="page">
-  <div class="contact-page">
-    <div class="section-title" style="margin-bottom:32px">
-      <div class="section-badge badge-violet">⚙️ API Settings</div>
-      <h1 style="font-size:clamp(28px,7vw,48px);font-weight:900;margin-top:12px">Configuration</h1>
-      <p>Apne personal API keys yahan setup karein</p>
+  <div class="settings-page section">
+    <div class="section-title">
+      <h2>⚙️ Configuration</h2>
+      <p>Setup your AI API keys</p>
     </div>
-    <div class="card" style="max-width:600px;margin:0 auto">
+    <div class="card" style="max-width:500px;margin:0 auto">
       <div class="form-group">
-        <label>Stability AI API Key</label>
-        <input id="set-skey" type="password" class="form-input" placeholder="sk-..."/>
-        <p style="font-size:10px;color:var(--dim);margin-top:4px">Stable Image generation ke liye (Optional)</p>
-      </div>
-      <div class="form-group">
-        <label>OpenAI API Key</label>
+        <label>OpenAI API Key (Advanced Chat Ke Liye)</label>
         <input id="set-okey" type="password" class="form-input" placeholder="sk-..."/>
-        <p style="font-size:10px;color:var(--dim);margin-top:4px">AI Chat completions ke liye (Optional)</p>
       </div>
-      <div class="form-group">
-        <label>Hugging Face API Key</label>
-        <input id="set-hkey" type="password" class="form-input" placeholder="hf_..."/>
-        <p style="font-size:10px;color:var(--dim);margin-top:4px">Hugging Face models ke liye (Optional)</p>
-      </div>
-      <button class="generate-btn" onclick="saveSettings()">💾 Settings Save Karo</button>
-      <div id="settings-status" style="margin-top:16px;text-align:center;font-size:12px;font-weight:700"></div>
+      <button class="btn btn-orange" style="width:100%" onclick="saveSettings()">Settings Save Karein</button>
+      <div id="settings-status" style="margin-top:12px;text-align:center"></div>
     </div>
   </div>
 </div>
-
-<!-- ============ CONTACT PAGE ============ -->
-<div id="page-contact" class="page">
-  <div class="contact-page">
-    <div class="section-title" style="margin-bottom:32px">
-      <div class="section-badge badge-orange">📬 Sampark Karein</div>
-      <h1 style="font-size:clamp(28px,7vw,48px);font-weight:900;margin-top:12px">Baat Karein</h1>
-      <p>Koi bhi sawaal ho — hum yahan hain</p>
-    </div>
-    <div class="contact-grid">
-      <div class="contact-info">
-        <div class="contact-info-card"><div class="ci-label">📧 Email</div><div class="ci-val">Xemoh1950t@proton.me</div></div>
-        <div class="contact-info-card"><div class="ci-label">📞 Phone</div><div class="ci-val">8696434884</div></div>
-        <div class="contact-info-card"><div class="ci-label">📍 Address</div><div class="ci-val">India, Jaipur, Karauli, Sapotara Mod</div></div>
-        <a class="social-card" href="https://www.instagram.com/_technical_01?igsh=MTdydjJkbWl3Y3ppeg==" target="_blank" style="display:flex">
-          <div class="social-card-icon" style="background:linear-gradient(135deg,#f97316,#ec4899);width:40px;height:40px;border-radius:10px;font-size:18px">
-            <svg width="18" height="18" fill="#fff" viewBox="0 0 24 24"><path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.163 6.162 6.163 6.162-2.759 6.162-6.163c0-3.403-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4 0-2.209 1.791-4 4-4s4 1.791 4 4c0 2.21-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.44s-.644-1.44-1.439-1.44z"/></svg>
-          </div>
-          <div><div class="social-card-name">Instagram DM</div><div class="social-card-sub">@_technical_01</div></div>
-        </a>
-      </div>
-      <div id="contactFormWrap" class="contact-form">
-        <h3 style="font-size:18px;font-weight:800;margin-bottom:20px">💬 Message Bhejein</h3>
-        <div class="form-row">
-          <div class="form-group"><label>Naam *</label><input id="cf-name" class="form-input" placeholder="Aapka naam"/></div>
-          <div class="form-group"><label>Email *</label><input id="cf-email" type="email" class="form-input" placeholder="aap@email.com"/></div>
-        </div>
-        <div class="form-group"><label>Subject</label><input id="cf-subject" class="form-input" placeholder="Kya baat karni hai?"/></div>
-        <div class="form-group"><label>Message *</label><textarea id="cf-msg" class="form-input" rows="5" placeholder="Apni baat likhein..."></textarea></div>
-        <button class="generate-btn" onclick="submitContact()" id="cfBtn">📤 Message Bhejein</button>
-      </div>
-    </div>
-  </div>
-</div>
-
-<footer>
-  <div class="footer-inner">
-    <div>
-      <div class="footer-brand">_technical<span>_01</span></div>
-      <div class="footer-sub">Aman Meena • Jaipur, Rajasthan, India</div>
-    </div>
-    <div class="footer-socials">
-      <a class="social-btn social-ig" href="https://www.instagram.com/_technical_01?igsh=MTdydjJkbWl3Y3ppeg==" target="_blank"><svg width="16" height="16" fill="#fff" viewBox="0 0 24 24"><path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.163 6.162 6.163 6.162-2.759 6.162-6.163c0-3.403-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4 0-2.209 1.791-4 4-4s4 1.791 4 4c0 2.21-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.44s-.644-1.44-1.439-1.44z"/></svg></a>
-      <a class="social-btn social-wa" href="https://whatsapp.com/channel/0029VaDFCbF9hXFDBUx8fe3E" target="_blank"><svg width="16" height="16" fill="#fff" viewBox="0 0 24 24"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.890-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg></a>
-      <a class="social-btn social-x" href="https://x.com/_technical_01" target="_blank"><svg width="14" height="14" fill="#fff" viewBox="0 0 24 24"><path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-4.714-6.231-5.401 6.231H2.746l7.735-8.835L1.254 2.25H8.08l4.253 5.622zm-1.161 17.52h1.833L7.084 4.126H5.117z"/></svg></a>
-    </div>
-    <div class="footer-links">
-      <span class="footer-link" onclick="showPage('about')">About</span>
-      <span class="footer-link" onclick="showPage('privacy')">Privacy</span>
-      <span class="footer-link" onclick="showPage('contact')">Contact</span>
-    </div>
-    <div class="footer-copy">© 2026 _technical_01 • Aman Meena • All rights reserved</div>
-  </div>
-</footer>
 
 <script src="config.js"></script>
 <script src="app.js"></script>
+<script type="module" src="https://ajax.googleapis.com/ajax/libs/model-viewer/3.4.0/model-viewer.min.js"></script>
 </body>
 </html>
